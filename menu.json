@@ -1,48 +1,12 @@
 {
     "menu": [
         {
+            "id": 1,
+            "namapaket": "Paket 1 CV"
+        },
+        {
             "id": 2,
-            "namapaket": "sayur"
-        },
-        {
-            "id": 3,
-            "namapaket": "lauk"
-        },
-        {
-            "id": 4,
-            "namapaket": "bubur"
-        },
-        {
-            "id": 5,
-            "namapaket": "bubur"
-        },
-        {
-            "id": 6,
-            "namapaket": "123"
-        },
-        {
-            "id": 7,
-            "namapaket": "444"
-        },
-        {
-            "id": 8,
-            "namapaket": "yoyoyo"
-        },
-        {
-            "id": 9,
-            "namapaket": "ayam"
-        },
-        {
-            "id": 10,
-            "namapaket": "ayam"
-        },
-        {
-            "id": 11,
-            "namapaket": "sidneydijual"
-        },
-        {
-            "id": 12,
-            "namapaket": "sidneydijual"
+            "namapaket": "Combo Keluarga 5 CV"
         }
     ]
 }

@@ -28,6 +28,9 @@ class User(BaseModel):
     email: Optional[str] = None
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
+    tanggal_lahir:Optional[str] = None
+    jenis_kelamin: Optional[str] = None
+    nomor_hp: Optional[int] = None
 
 class UserInDB(User):
     hashed_password: str
@@ -107,26 +110,23 @@ async def isCurrUsername(username: str, current_user: User = Depends(get_current
     else:
         return(False)
 
-@app.get('/menu', tags=["Admin View"])
-async def read_all_menu(current_user: User = Depends(get_current_active_user)):
-    return data
-
 @app.get('/user', tags=["Manajemen Akun"])
 async def read_user_data(current_user: User = Depends(get_current_active_user)):
     return fake_users_db
 
-@app.post('/menu', tags=["Admin View"])
-async def post_menu(name:str, current_user: User = Depends(get_current_active_user)):
+@app.post('/reviewer', tags=["Admin View"])
+async def post_data(name:str, current_user: User = Depends(get_current_active_user)):
     id=1
     if(len(data['menu'])>0):
         id=data['menu'][len(data['menu'])-1]['id']+1
     new_data={'id':id,'name':name}
     data['menu'].append(dict(new_data))
+    return ("Data berhasil diinput")
     
-@app.post('/RegisterAdmin', tags=["Manajemen Akun"])
-async def register_admin(username:str, password:str, current_user: User = Depends(get_current_active_user)):
+@app.post('/register/admin', tags=["Manajemen Akun"])
+async def register_admin(full_name: str, email: str, tanggal_lahir:str, jenis_kelamin: str, nomor_hp: int, username:str, password:str, current_user: User = Depends(get_current_active_user)):
     if username not in fake_users_db:
-        new_data = {"username": username, "hashed_password": get_password_hash(password),"disabled": False}
+        new_data = {"username": username, "hashed_password": get_password_hash(password),"disabled": False, "full_name": full_name, "email": email, "tanggal_lahir": tanggal_lahir, 'jenis_kelamin':jenis_kelamin, 'nomor_hp': nomor_hp}
     fake_users_db[username] = new_data
     read_file.close()
     with open("user.json", "w") as write_file:
@@ -134,8 +134,8 @@ async def register_admin(username:str, password:str, current_user: User = Depend
     write_file.close()
     return (new_data)
 
-@app.get('/menu/{item_id}', tags=["Admin View"])
-async def update_menu(item_id: int, name:str, current_user: User = Depends(get_current_active_user)):
+@app.get('/data/{item_id}', tags=["Admin View"])
+async def update_data(item_id: int, name:str, current_user: User = Depends(get_current_active_user)):
     for menu_item in data['menu']:
         if menu_item['id'] == item_id:
             menu_item['name']=name
@@ -143,14 +143,14 @@ async def update_menu(item_id: int, name:str, current_user: User = Depends(get_c
         with open("menu.json", "w") as write_file:
             json.dump(data,write_file,indent=4)
         write_file.close()
-        return{"message": "Data updated successfully"}
+        return("Data berhasil diubah")
     raise HTTPException(
         status_code=404, detail=f'Item not found'
     )
 
-@app.post('/DaftarHarga', tags=["Menu Pengguna"])
+@app.post('/daftarpaket', tags=["Menu Pengguna"])
 async def Baca_List_Harga():
-    return(data)
+    return(data['menu'])
 
 @app.post("/token", response_model=Token, tags=["Others"])
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):

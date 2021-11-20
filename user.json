@@ -1,12 +1,22 @@
 {
     "asdf": {
         "username": "asdf",
-        "hashed_password": "$2b$12$NAflqGqx5gHgWh6qxwlqNeVBPCuanBGNgjFUx.kHmR7NdYAuHvqbO",
-        "disabled": false
+        "hashed_password": "$2b$12$XEHkAVw6BlveeK8QaGx.ZueOUabek.MQNwrlAFboBkV7C5CMZMlWm",
+        "disabled": false,
+        "full_name": "Aesdeef",
+        "email": "asdf@gmail.com",
+        "jenis_kelamin": "Perempuan",
+        "tanggal_lahir": "19 Oktober 2001",
+        "nomor_hp": "08212227"
     },
-    "stella": {
-        "username": "stella",
-        "hashed_password": "$2b$12$toeB1w8HckkyJj8Wg5Xz8e7BQC0cVvWAKm.t2aJfphK7PTnQtBHdm",
-        "disabled": false
+    "sinawaty": {
+        "username": "sinawaty",
+        "hashed_password": "$2b$12$hQNqI508lWfye8tI1UzZR.q6pimug.3aaXoW7Bmmd.V44xHymlzQm",
+        "disabled": false,
+        "full_name": "Sandra Inawaty",
+        "email": "sandra@gmail.com",
+        "tanggal_lahir": "18 Oktober 2001",
+        "jenis_kelamin": "Perempuan",
+        "nomor_hp": 821222
     }
 }
