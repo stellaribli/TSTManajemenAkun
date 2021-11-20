@@ -100,7 +100,13 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
 
 async def curr_username(current_user: User = Depends(get_current_active_user)):
     return current_user.username
-   
+
+async def isCurrUsername(username: str, current_user: User = Depends(get_current_active_user)):
+    if username==current_user.username:
+        return(True)
+    else:
+        return(False)
+
 @app.get('/menu', tags=["Admin View"])
 async def read_all_menu(current_user: User = Depends(get_current_active_user)):
     return data
@@ -161,27 +167,13 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-# @app.get('/resetpass/', tags=["Admin View"])
-# async def reset_password(current_password: str, password:str,current_user: User = Depends(get_current_active_user)):
-#     if verify_password(current_password,(fake_users_db[curr_username()])['hashed_password']):
-#         (fake_users_db[curr_username()])['hashed_password'] = get_password_hash(password)
-#         return('Password berhasil diubah!')
-#     else:
-#         return('Password salah!')
-
-
-@app.get('/resetpass/', tags=["Admin View"])
-async def reset_password(username: str, current_password: str, password:str,current_user: User = Depends(get_current_active_user)):
-    if verify_password(current_password,(fake_users_db[username])['hashed_password']):
-        (fake_users_db[username])['hashed_password'] = get_password_hash(password)
+@app.get('/resetpassword/', tags=["Manajemen Akun"])
+async def reset_password(current_password: str, password:str,current_user: User = Depends(get_current_active_user)):
+    if verify_password(current_password,(fake_users_db[current_user.username])['hashed_password']):
+        (fake_users_db[current_user.username])['hashed_password'] = get_password_hash(password)
         with open("user.json", "w") as write_file:
             json.dump(fake_users_db,write_file,indent=4)
         write_file.close()
         return('Password berhasil diubah!')
     else:
         return('Password salah!')
-
-@app.get('/lho')
-async def ceksamaga(username:str, current_user: User = Depends(get_current_active_user)):
-    # if username == curr_username():
-    return(curr_username())
