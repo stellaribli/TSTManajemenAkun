@@ -1,0 +1,15 @@
+{
+    "daftarharga": [
+        {
+            "name": "Paket 1",
+            "detil": "1 CV",
+            "harga": "Rp 25.000,00"
+        },
+        {
+            "name": "Paket 2",
+            "detil": "2 CV",
+            "harga": "Rp 40.000,00"
+
+        }
+    ]
+}
