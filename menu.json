@@ -2,47 +2,47 @@
     "menu": [
         {
             "id": 2,
-            "name": "sayur"
+            "namapaket": "sayur"
         },
         {
             "id": 3,
-            "name": "lauk"
+            "namapaket": "lauk"
         },
         {
             "id": 4,
-            "name": "bubur"
+            "namapaket": "bubur"
         },
         {
             "id": 5,
-            "name": "bubur"
+            "namapaket": "bubur"
         },
         {
             "id": 6,
-            "name": "123"
+            "namapaket": "123"
         },
         {
             "id": 7,
-            "name": "444"
+            "namapaket": "444"
         },
         {
             "id": 8,
-            "name": "yoyoyo"
+            "namapaket": "yoyoyo"
         },
         {
             "id": 9,
-            "name": "ayam"
+            "namapaket": "ayam"
         },
         {
             "id": 10,
-            "name": "ayam"
+            "namapaket": "ayam"
         },
         {
             "id": 11,
-            "name": "sidneydijual"
+            "namapaket": "sidneydijual"
         },
         {
             "id": 12,
-            "name": "sidneydijual"
+            "namapaket": "sidneydijual"
         }
     ]
 }

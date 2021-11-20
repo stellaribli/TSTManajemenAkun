@@ -1,9 +1,12 @@
 {
     "asdf": {
         "username": "asdf",
-        "full_name": "Stella Ribli",
-        "email": "riblistella@gmail.com",
-        "hashed_password": "$2b$12$WZG/yZ8a8J9ILQPfYoDKd.bnifDO8ybcvLP/vX06.6xng4SZ1IipS",
+        "hashed_password": "$2b$12$4SxM.RurbQwvecD27rpxweCROyROhHbeUcJNujlOmX2djVMFq9bKa",
+        "disabled": false
+    },
+    "stella": {
+        "username": "stella",
+        "hashed_password": "$2b$12$toeB1w8HckkyJj8Wg5Xz8e7BQC0cVvWAKm.t2aJfphK7PTnQtBHdm",
         "disabled": false
     }
 }

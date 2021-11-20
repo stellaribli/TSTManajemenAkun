@@ -41,9 +41,7 @@ read_file.close()
 
 with open("user.json", "r") as read_file:
     fake_users_db = json.load(read_file)
-
-with open("daftarharga.json", "r") as read_file:
-    dataharga = json.load(read_file)
+read_file.close()
 
 app = FastAPI(description ="Login Account Tutee")
 
@@ -100,20 +98,8 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
-
-# class RoleChecker:
-#     def __init__(self, allowed_roles: List):
-#         self.allowed_roles = allowed_roles
-
-#     def __call__(self, user: User = Depends(get_current_active_user)):
-#         if user.role not in self.allowed_roles:
-#             logger.debug(f"User with role {user.role} not in {self.allowed_roles}")
-#             raise HTTPException(status_code=403, detail="Operation not permitted")
-# allow_create_resource = RoleChecker(["admin"])
-
-# def verify_role(required_role: List, user: User = Depends(get_current_active_user)):
-#     if user.role not in required_role:
-#         raise HTTPException(status_code=403, detail="Operation not permitted")
+async def curr_username(current_user: User = Depends(get_current_active_user)):
+    return current_user.username
    
 @app.get('/menu', tags=["Admin View"])
 async def read_all_menu(current_user: User = Depends(get_current_active_user)):
@@ -132,7 +118,7 @@ async def post_menu(name:str, current_user: User = Depends(get_current_active_us
     data['menu'].append(dict(new_data))
     
 @app.post('/RegisterAdmin', tags=["Manajemen Akun"])
-async def register_as_admin(username:str, password:str, current_user: User = Depends(get_current_active_user)):
+async def register_admin(username:str, password:str, current_user: User = Depends(get_current_active_user)):
     if username not in fake_users_db:
         new_data = {"username": username, "hashed_password": get_password_hash(password),"disabled": False}
     fake_users_db[username] = new_data
@@ -141,7 +127,6 @@ async def register_as_admin(username:str, password:str, current_user: User = Dep
         json.dump(fake_users_db,write_file,indent=4)
     write_file.close()
     return (new_data)
-
 
 @app.get('/menu/{item_id}', tags=["Admin View"])
 async def update_menu(item_id: int, name:str, current_user: User = Depends(get_current_active_user)):
@@ -159,7 +144,7 @@ async def update_menu(item_id: int, name:str, current_user: User = Depends(get_c
 
 @app.post('/DaftarHarga', tags=["Menu Pengguna"])
 async def Baca_List_Harga():
-    return(dataharga)
+    return(data)
 
 @app.post("/token", response_model=Token, tags=["Others"])
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
@@ -176,16 +161,27 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-# @app.get('/resetpass/{item_id}', tags=["Admin View"])
-# async def reset_password(item_id: int, name:str):
-#     for menu_item in data['menu']:
-#         if menu_item['id'] == item_id:
-#             menu_item['name']=name
-#         read_file.close()
-#         with open("menu.json", "w") as write_file:
-#             json.dump(data,write_file,indent=4)
-#         write_file.close()
-#         return{"message": "Data updated successfully"}
-#     raise HTTPException(
-#         status_code=404, detail=f'Item not found'
-#     )
+# @app.get('/resetpass/', tags=["Admin View"])
+# async def reset_password(current_password: str, password:str,current_user: User = Depends(get_current_active_user)):
+#     if verify_password(current_password,(fake_users_db[curr_username()])['hashed_password']):
+#         (fake_users_db[curr_username()])['hashed_password'] = get_password_hash(password)
+#         return('Password berhasil diubah!')
+#     else:
+#         return('Password salah!')
+
+
+@app.get('/resetpass/', tags=["Admin View"])
+async def reset_password(username: str, current_password: str, password:str,current_user: User = Depends(get_current_active_user)):
+    if verify_password(current_password,(fake_users_db[username])['hashed_password']):
+        (fake_users_db[username])['hashed_password'] = get_password_hash(password)
+        with open("user.json", "w") as write_file:
+            json.dump(fake_users_db,write_file,indent=4)
+        write_file.close()
+        return('Password berhasil diubah!')
+    else:
+        return('Password salah!')
+
+@app.get('/lho')
+async def ceksamaga(username:str, current_user: User = Depends(get_current_active_user)):
+    # if username == curr_username():
+    return(curr_username())
